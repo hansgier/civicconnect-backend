@@ -15,6 +15,7 @@ import announcementsRoutes from './modules/announcements/announcements.routes.js
 import contactsRoutes from './modules/contacts/contacts.routes.js';
 import notificationsRoutes from './modules/notifications/notifications.routes.js';
 import dashboardRoutes from './modules/dashboard/dashboard.routes.js';
+import systemRoutes from './modules/system/system.routes.js';
 import passport from './config/passport.js';
 
 import { errorHandler } from './middleware/error.middleware.js';
@@ -68,6 +69,7 @@ app.use('/api/announcements', announcementsRoutes);
 app.use('/api/contacts', contactsRoutes);
 app.use('/api/notifications', notificationsRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/system', systemRoutes);
 
 app.use('/api', (_req, res) => {
   res.status(404).json({ message: 'API endpoint not found' });

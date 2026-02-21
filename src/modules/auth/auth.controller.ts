@@ -14,7 +14,7 @@ interface AuthResponse {
 const cookieOptions = {
   httpOnly: true,
   secure: env.NODE_ENV === 'production',
-  sameSite: 'strict' as const,
+  sameSite: env.NODE_ENV === 'production' ? ('none' as const) : ('lax' as const),
   path: '/',
 };
 
@@ -38,7 +38,7 @@ export const authController = {
   },
 
   async login(req: Request, res: Response) {
-    const result = await authService.login(req.body as LoginInput) as AuthResponse;
+    const result = (await authService.login(req.body as LoginInput)) as AuthResponse;
     setTokenCookies(res, result.accessToken, result.refreshToken);
     res.status(200).json({ user: result.user });
   },
@@ -105,7 +105,7 @@ export const authController = {
   },
 
   async guestLogin(_req: Request, res: Response) {
-    const result = await authService.guestLogin() as AuthResponse;
+    const result = (await authService.guestLogin()) as AuthResponse;
     setTokenCookies(res, result.accessToken, result.refreshToken);
     res.status(200).json({ user: result.user });
   },
