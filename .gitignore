@@ -22,7 +22,6 @@ pnpm-debug.log*
 Thumbs.db
 
 # Prisma
-/prisma/migrations/
 *.db
 *.db-journal
 
