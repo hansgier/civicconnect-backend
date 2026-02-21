@@ -6,7 +6,7 @@ import { UnauthorizedError } from '../shared/errors/errors.js';
 export const authenticateUser = async (
   req: Request,
   _res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const authHeader = req.headers.authorization;
@@ -27,7 +27,7 @@ export const authenticateUser = async (
 
     const user = await prisma.user.findUnique({
       where: { id: payload.id },
-      select: { id: true, email: true, role: true, barangayId: true, status: true },
+      select: { id: true, email: true, role: true, barangayId: true, status: true, name: true },
     });
 
     if (!user || user.status !== 'ACTIVE') {
@@ -39,6 +39,7 @@ export const authenticateUser = async (
       email: user.email,
       role: user.role,
       barangayId: user.barangayId,
+      name: user.name,
     };
 
     next();

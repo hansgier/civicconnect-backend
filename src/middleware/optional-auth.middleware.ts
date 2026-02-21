@@ -8,17 +8,11 @@ import { prisma } from '../config/database.js';
  * If no token or invalid token, continues without req.user (no error).
  * Use this on read-only public endpoints.
  */
-export const optionalAuth = async (
-  req: Request,
-  _res: Response,
-  next: NextFunction
-) => {
+export const optionalAuth = async (req: Request, _res: Response, next: NextFunction) => {
   try {
     const authHeader = req.headers.authorization;
     const cookieToken = req.cookies?.access_token;
-    const token = authHeader?.startsWith('Bearer ')
-      ? authHeader.split(' ')[1]
-      : cookieToken;
+    const token = authHeader?.startsWith('Bearer ') ? authHeader.split(' ')[1] : cookieToken;
 
     if (!token) return next();
 
@@ -27,7 +21,7 @@ export const optionalAuth = async (
 
     const user = await prisma.user.findUnique({
       where: { id: payload.id },
-      select: { id: true, email: true, role: true, barangayId: true, status: true },
+      select: { id: true, email: true, role: true, barangayId: true, status: true, name: true },
     });
 
     if (user && user.status === 'ACTIVE') {
@@ -36,6 +30,7 @@ export const optionalAuth = async (
         email: user.email,
         role: user.role,
         barangayId: user.barangayId,
+        name: user.name,
       };
     }
   } catch {
