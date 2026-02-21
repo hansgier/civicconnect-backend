@@ -1,16 +1,8 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import { env } from '../../config/env.js';
 import { logger } from '../../config/logger.js';
 
-const transporter = nodemailer.createTransport({
-  host: env.SMTP_HOST,
-  port: env.SMTP_PORT,
-  secure: false,
-  auth: {
-    user: env.SMTP_USER,
-    pass: env.SMTP_PASS,
-  },
-});
+const resend = new Resend(env.RESEND_API_KEY);
 
 interface EmailOptions {
   to: string;
@@ -20,15 +12,21 @@ interface EmailOptions {
 
 export const sendEmail = async (options: EmailOptions): Promise<void> => {
   try {
-    await transporter.sendMail({
+    const { error } = await resend.emails.send({
       from: env.EMAIL_FROM,
       to: options.to,
       subject: options.subject,
       html: options.html,
     });
+
+    if (error) {
+      throw error;
+    }
+
     logger.info(`Email sent to ${options.to}`);
   } catch (error) {
     logger.error({ err: error }, 'Failed to send email');
+    throw error; // Re-throw so pg-boss retries work
   }
 };
 
