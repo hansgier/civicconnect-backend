@@ -34,10 +34,10 @@ app.use(
   cors({
     origin: (origin, callback) => {
       const allowedOrigins = [env.CLIENT_URL];
+      allowedOrigins.push('https://civicconnect-pi.vercel.app');
       if (env.NODE_ENV === 'development') {
         allowedOrigins.push('http://localhost:5173');
         allowedOrigins.push('http://127.0.0.1:5173');
-        allowedOrigins.push('https://civicconnect-pi.vercel.app/');
       }
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
