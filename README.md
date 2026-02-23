@@ -227,10 +227,6 @@ See [CHANGELOG.md](./CHANGELOG.md) for detailed version history.
 4. Push to branch: `git push origin feature/your-feature`
 5. Submit a pull request
 
-## License
-
-ISC
-
 ## Support
 
 For issues or questions, please open an issue in the project repository.
