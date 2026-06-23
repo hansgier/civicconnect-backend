@@ -90,24 +90,6 @@ This backend service powers a full-stack project tracking system designed for ba
    npm run dev
    ```
 
-## Scripts
-
-- `npm run dev` - Start development server with hot reload
-- `npm run build` - Compile TypeScript to JavaScript
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run format` - Format code with Prettier
-- `npm run test` - Run tests with Vitest (watch mode)
-- `npm run test:run` - Run tests once
-
-### Database Commands
-
-- `npm run db:migrate` - Run Prisma migrations
-- `npm run db:push` - Push schema changes (dev only)
-- `npm run db:seed` - Seed database with initial data
-- `npm run db:studio` - Open Prisma Studio (visual database manager)
-- `npm run db:generate` - Generate Prisma client
-
 ## Project Structure
 
 ```
@@ -148,28 +130,6 @@ The API follows RESTful conventions with the following main endpoints:
 - `GET /api/dashboard/summary` - Dashboard summary stats
 - `GET /api/dashboard/status-trends` - Project status trends over time
 
-## Environment Variables
-
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `DATABASE_URL` | PostgreSQL connection string | Yes |
-| `JWT_SECRET` | JWT signing secret | Yes |
-| `JWT_REFRESH_SECRET` | JWT refresh token secret | Yes |
-| `PORT` | Server port (default: 5000) | No |
-| `NODE_ENV` | Environment (development/production) | No |
-| `REDIS_URL` | Redis connection URL | No |
-| `GOOGLE_CLIENT_ID` | Google OAuth client ID | No |
-| `GOOGLE_CLIENT_SECRET` | Google OAuth client secret | No |
-| `FACEBOOK_APP_ID` | Facebook app ID | No |
-| `FACEBOOK_APP_SECRET` | Facebook app secret | No |
-| `CLOUDINARY_CLOUD_NAME` | Cloudinary cloud name | No |
-| `CLOUDINARY_API_KEY` | Cloudinary API key | No |
-| `CLOUDINARY_API_SECRET` | Cloudinary API secret | No |
-| `SMTP_HOST` | SMTP server host | No |
-| `SMTP_PORT` | SMTP server port | No |
-| `SMTP_USER` | SMTP username | No |
-| `SMTP_PASS` | SMTP password | No |
-
 ## Testing
 
 Run the test suite:
@@ -190,43 +150,3 @@ The backend uses Redis/node-cache for caching:
 - **Dashboard Data**: Cached for 5 minutes
 - **User Sessions**: Cached for session duration
 - **Static Data**: Longer cache times for reference data
-
-Cache invalidation happens automatically on data mutations.
-
-## Security Features
-
-- **Helmet**: Security headers
-- **CORS**: Configured for frontend origin
-- **Rate Limiting**: API rate limiting per IP
-- **Input Sanitization**: sanitize-html for user content
-- **JWT Authentication**: Secure token-based auth
-- **Password Hashing**: bcryptjs for password storage
-- **SQL Injection Protection**: Prisma ORM parameterized queries
-
-## Recent Changes
-
-See [CHANGELOG.md](./CHANGELOG.md) for detailed version history.
-
-### Latest Updates (v1.0.0)
-
-- Initial release with core features
-- RESTful API with Express and TypeScript
-- PostgreSQL database with Prisma ORM
-- JWT and OAuth authentication
-- Role-based access control
-- Cloudinary file uploads
-- Email notifications
-- Real-time updates with Socket.io
-- Background jobs with pg-boss
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Commit changes: `git commit -am 'Add new feature'`
-4. Push to branch: `git push origin feature/your-feature`
-5. Submit a pull request
-
-## Support
-
-For issues or questions, please open an issue in the project repository.
